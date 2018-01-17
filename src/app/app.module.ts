@@ -15,13 +15,20 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app.routes';
 import { BasketComponent } from './basket/basket.component';
+import { SharedModule } from './shared/shared.module';
+import { PreloadAllModules } from '@angular/router';
+import { CustomPreloadStrategy } from './shared/preloading/custom-preload-strategy';
+
+
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
-    FlightBookingModule,
-    RouterModule.forRoot(APP_ROUTES)
+    SharedModule.forRoot(),
+    RouterModule.forRoot(
+      APP_ROUTES,
+      { preloadingStrategy: CustomPreloadStrategy})
   ],
   declarations: [
     AppComponent,

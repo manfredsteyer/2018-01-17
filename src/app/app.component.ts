@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'flight-app',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  title = 'Manfred war hier!';
+  constructor(private router: Router) {
+    
+    router.events.subscribe( e => console.debug('event', e));
+  }
 }
 

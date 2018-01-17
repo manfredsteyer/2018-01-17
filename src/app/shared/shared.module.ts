@@ -4,6 +4,8 @@ import { CityPipe } from './pipes/city.pipe';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { ExitGuard } from './exit/exit.guard';
+import { CustomPreloadStrategy } from './preloading/custom-preload-strategy';
+import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
 
 @NgModule({
   imports: [
@@ -12,13 +14,29 @@ import { ExitGuard } from './exit/exit.guard';
   declarations: [
     CityPipe
   ],
-  providers: [
-    ExitGuard,
-    AuthService,
-    AuthGuard
-  ],
+ 
   exports: [
     CityPipe
   ]
 })
-export class SharedModule { }
+export class SharedModule { 
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        CustomPreloadStrategy,
+        ExitGuard,
+        AuthService,
+        AuthGuard
+      ] 
+    }
+  }
+
+  static forChild(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: []
+    }
+  }
+
+}
