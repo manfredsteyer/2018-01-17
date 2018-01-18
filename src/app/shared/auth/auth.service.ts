@@ -1,19 +1,24 @@
+import { OAuthService } from 'angular-oauth2-oidc';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
 
+    constructor(private oauthService: OAuthService) {
+    }
     
-    userName: string;
+    get userName(): string {
+        let claims = this.oauthService.getIdentityClaims();
+        if (!claims) return null;
+        return claims['given_name'];
+    }
 
     login() {
-        this.userName = 'Max';
+        this.oauthService.initImplicitFlow();
     }
 
     logout() {
-        this.userName = null;
+        this.oauthService.logOut();
     }
     
-    constructor() { }
-
 }

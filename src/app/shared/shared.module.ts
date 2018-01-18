@@ -7,6 +7,9 @@ import { ExitGuard } from './exit/exit.guard';
 import { CustomPreloadStrategy } from './preloading/custom-preload-strategy';
 import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
 
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule
@@ -27,7 +30,12 @@ export class SharedModule {
         CustomPreloadStrategy,
         ExitGuard,
         AuthService,
-        AuthGuard
+        AuthGuard,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthInterceptor,
+          multi: true
+        }
       ] 
     }
   }

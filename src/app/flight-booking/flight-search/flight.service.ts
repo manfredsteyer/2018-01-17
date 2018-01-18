@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Flight } from '../../entities/flight';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
 export class FlightService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private oauthService: OAuthService,
+    private http: HttpClient) {
   }
 
   flights: Flight[] = [];
@@ -30,6 +32,9 @@ export class FlightService {
 
     let headers = new HttpHeaders()
       .set('Accept', 'application/json');
+
+      // .set('Authorization', this.oauthService.authorizationHeader());
+
 
     return this.http.get<Flight[]>(url, {params, headers});
 

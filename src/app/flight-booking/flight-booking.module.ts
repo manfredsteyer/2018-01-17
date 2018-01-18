@@ -10,11 +10,13 @@ import { RouterModule } from '@angular/router';
 import { FLIGHT_BOOKING_ROUTES } from './flight-booking.routes';
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FlightBookingComponent } from './flight-booking.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    OAuthModule,
     SharedModule.forChild(),
     RouterModule.forChild(FLIGHT_BOOKING_ROUTES)
   ],

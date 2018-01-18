@@ -18,13 +18,14 @@ import { BasketComponent } from './basket/basket.component';
 import { SharedModule } from './shared/shared.module';
 import { PreloadAllModules } from '@angular/router';
 import { CustomPreloadStrategy } from './shared/preloading/custom-preload-strategy';
-
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
+    OAuthModule.forRoot(),
     SharedModule.forRoot(),
     RouterModule.forRoot(
       APP_ROUTES,
