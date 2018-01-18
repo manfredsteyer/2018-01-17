@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
+  activeTab = 2;
+
   get userName(): string {
     return this.authService.userName;
   }

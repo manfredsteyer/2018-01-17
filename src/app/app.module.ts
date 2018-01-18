@@ -1,9 +1,9 @@
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,26 @@ import { PreloadAllModules } from '@angular/router';
 import { CustomPreloadStrategy } from './shared/preloading/custom-preload-strategy';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+import { registerLocaleData } from '@angular/common';
+
+import localeDe from '@angular/common/locales/de';
+import localeDeAt from '@angular/common/locales/de-AT';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeDe);     // de-DE
+registerLocaleData(localeDeAt);   // de-AT
+registerLocaleData(localeEs);     // es-ES
+
+
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "/assets/i18n/", ".json");
+}
+
 
 @NgModule({
   imports: [
@@ -27,6 +47,15 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     HttpClientModule,
     OAuthModule.forRoot(),
     SharedModule.forRoot(),
+    
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
+    
     RouterModule.forRoot(
       APP_ROUTES,
       { preloadingStrategy: CustomPreloadStrategy})
@@ -40,7 +69,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 ],
   providers: [
     // { provide: FlightService, useClass: FlightService}
-    // FlightService
+    // FlightService,
+    { provide: LOCALE_ID, useValue: 'de' }
   ],
   bootstrap: [AppComponent]
 })

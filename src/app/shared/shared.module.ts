@@ -10,19 +10,31 @@ import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { TabComponent } from './tabbed-pane/tab/tab.component';
+import { TabbedPaneComponent } from "./tabbed-pane/tabbed-pane/tabbed-pane.component";
+import { PagerComponent } from './tabbed-pane/pager/pager.component';
+import { BadComponent } from './tabbed-pane/bad/bad.component';
+
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    CityPipe
+    CityPipe,
+    TabComponent,
+    TabbedPaneComponent,
+    PagerComponent,
+    BadComponent
   ],
- 
+
   exports: [
-    CityPipe
+    CityPipe,
+    TabComponent,
+    TabbedPaneComponent,
+    BadComponent
   ]
 })
-export class SharedModule { 
+export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
@@ -36,7 +48,7 @@ export class SharedModule {
           useClass: AuthInterceptor,
           multi: true
         }
-      ] 
+      ]
     }
   }
 

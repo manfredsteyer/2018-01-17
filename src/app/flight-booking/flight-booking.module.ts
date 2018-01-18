@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     CommonModule,
     FormsModule,
     OAuthModule,
+    TranslateModule,
     SharedModule.forChild(),
     RouterModule.forChild(FLIGHT_BOOKING_ROUTES)
   ],
